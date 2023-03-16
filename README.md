@@ -1,3 +1,3 @@
-# terraform-aws-axetrading-smtp
-terraform smtp module
+# terraform-aws-axetrading-sftp
+terraform sftp module
 
