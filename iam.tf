@@ -19,16 +19,16 @@ resource "aws_iam_role" "sftp_role" {
 resource "aws_iam_policy" "sftp_policy" {
   count = var.create_sftp_server ? 1 : 0
 
-  name        = "${var.sftp_name}-${count.index}"
-  path        = "/"
-  policy      = data.aws_iam_policy_document.sftp_policy[count.index].json
+  name   = "${var.sftp_name}-${count.index}"
+  path   = "/"
+  policy = data.aws_iam_policy_document.sftp_policy[count.index].json
 }
 
 data "aws_iam_policy_document" "sftp_policy" {
   count = var.create_sftp_server ? 1 : 0
 
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "transfer:ListUsers",
       "transfer:CreateUser",

@@ -11,7 +11,7 @@ resource "aws_transfer_server" "sftp_server" {
   count = var.create_sftp_server ? 1 : 0
 
   identity_provider_type = "SERVICE_MANAGED"
-  endpoint_type           = "PUBLIC"
+  endpoint_type          = "PUBLIC"
   tags = {
     Name        = "${var.sftp_name}-${count.index}"
     Customer    = "customer"
