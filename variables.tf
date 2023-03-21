@@ -4,10 +4,7 @@ variable "region" {
   default     = "eu-west-2"
 }
 
-variable "efs_name" {
-  description = "The name of the EFS file system"
-}
-
+### VPC, AZ, SG
 variable "vpc_id" {
   description = "The name of the VPC where you want to create the resources"
   type        = string
@@ -30,5 +27,26 @@ variable "security_groups" {
   type = list(object({
     id = string
   }))
+}
+
+### EFS
+variable "efs_name" {
+  description = "The name of the EFS file system"
+}
+
+
+### SFTP
+variable "create_sftp_server" {
+  description = "Flag to create an AWS Transfer Family SFTP server"
+  type        = bool
+  default     = false
+}
+
+variable "sftp_name" {
+  description = "The name of the SFTP server"
+}
+
+variable "sftp_user_name" {
+  description = "The username for the SFTP user"
 }
 
