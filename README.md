@@ -1,14 +1,14 @@
 <!-- BEGIN_TF_DOCS -->
 # AWS SFTP Terraform Module
 
-This module set up EFS with AWS Transfer Family for accessing AxeTrading server files for managed service customers.\n
-<<EOT
+This module set up EFS with AWS Transfer Family for accessing AxeTrading server files for managed service customers.
+
 Connect to sftp server:
-sftp -i <path-to-private-key> <username>@<server-address>
+sftp -i path-to-private-key sftp_username@sftp_server_address
 
 Mounting instructions:
 sudo mount -t efs -o tls EFS_NAME:/ efs   # where EFS_NAME = ID of EFS
-EOT
+
 
 
 ## Requirements
