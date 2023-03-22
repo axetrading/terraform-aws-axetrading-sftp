@@ -42,6 +42,12 @@ variable "create_sftp_server" {
   default     = false
 }
 
+variable "create_sftp_user" {
+  description = "Flag to create an AWS Transfer Family SFTP server"
+  type        = bool
+  default     = false
+}
+
 variable "sftp_name" {
   description = "The name of the SFTP server"
 }

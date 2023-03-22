@@ -1,5 +1,3 @@
-### EFS
-
 resource "aws_efs_file_system" "efs" {
   count = length(var.az)
 

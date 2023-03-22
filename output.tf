@@ -1,5 +1,4 @@
 ### EFS 
-
 output "efs_file_system_arns" {
   value = aws_efs_file_system.efs.*.arn
 }
@@ -21,10 +20,9 @@ output "efs_mount_target_dns_names" {
 }
 
 ### SFTP 
-
-# Output RSA Key for SFTP User
 output "sftp_user_key" {
-  value = tls_private_key.sftp_key.private_key_pem
+  value       = tls_private_key.sftp_key.private_key_pem
+  description = "RSA Key for SFTP User"
 }
 
 output "sftp_server_id" {
