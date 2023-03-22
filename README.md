@@ -45,11 +45,11 @@ In this way you connect to sftp server: sftp -i <path-to-private-key> <username>
 | <a name="input_az"></a> [az](#input\_az) | The name of the Availability Zones | `list(string)` | `[]` | no |
 | <a name="input_create_sftp_server"></a> [create\_sftp\_server](#input\_create\_sftp\_server) | Flag to create an AWS Transfer Family SFTP server | `bool` | `false` | no |
 | <a name="input_create_sftp_user"></a> [create\_sftp\_user](#input\_create\_sftp\_user) | Flag to create an AWS Transfer Family SFTP server | `bool` | `false` | no |
-| <a name="input_efs_name"></a> [efs\_name](#input\_efs\_name) | The name of the EFS file system | `any` | n/a | yes |
+| <a name="input_efs_name"></a> [efs\_name](#input\_efs\_name) | The name of the EFS file system | `list` | `[]` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | `"eu-west-2"` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | The name of the Security Groups | <pre>list(object({<br>    id = string<br>  }))</pre> | n/a | yes |
-| <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `any` | n/a | yes |
-| <a name="input_sftp_user_name"></a> [sftp\_user\_name](#input\_sftp\_user\_name) | The username for the SFTP user | `any` | n/a | yes |
+| <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `list` | `[]` | no |
+| <a name="input_sftp_user_name"></a> [sftp\_user\_name](#input\_sftp\_user\_name) | The username for the SFTP user | `list` | `[]` | no |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | The name of the Subnets | `list(string)` | `[]` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The name of the VPC where you want to create the resources | `string` | n/a | yes |
 
@@ -57,14 +57,14 @@ In this way you connect to sftp server: sftp -i <path-to-private-key> <username>
 
 | Name | Description |
 |------|-------------|
-| <a name="output_efs_file_system_arns"></a> [efs\_file\_system\_arns](#output\_efs\_file\_system\_arns) | ## EFS |
-| <a name="output_efs_file_system_dns_names"></a> [efs\_file\_system\_dns\_names](#output\_efs\_file\_system\_dns\_names) | n/a |
-| <a name="output_efs_file_system_ids"></a> [efs\_file\_system\_ids](#output\_efs\_file\_system\_ids) | n/a |
-| <a name="output_efs_mount_target_dns_names"></a> [efs\_mount\_target\_dns\_names](#output\_efs\_mount\_target\_dns\_names) | n/a |
-| <a name="output_efs_mount_target_ids"></a> [efs\_mount\_target\_ids](#output\_efs\_mount\_target\_ids) | n/a |
-| <a name="output_sftp_server_id"></a> [sftp\_server\_id](#output\_sftp\_server\_id) | n/a |
-| <a name="output_sftp_user_home_directory"></a> [sftp\_user\_home\_directory](#output\_sftp\_user\_home\_directory) | n/a |
-| <a name="output_sftp_user_id"></a> [sftp\_user\_id](#output\_sftp\_user\_id) | n/a |
-| <a name="output_sftp_user_key"></a> [sftp\_user\_key](#output\_sftp\_user\_key) | RSA Key for SFTP User |
-| <a name="output_sftp_user_name"></a> [sftp\_user\_name](#output\_sftp\_user\_name) | n/a |
+| <a name="output_efs_file_system_arns"></a> [efs\_file\_system\_arns](#output\_efs\_file\_system\_arns) | ARN of EFS |
+| <a name="output_efs_file_system_dns_names"></a> [efs\_file\_system\_dns\_names](#output\_efs\_file\_system\_dns\_names) | DNS NAME of EFS |
+| <a name="output_efs_file_system_ids"></a> [efs\_file\_system\_ids](#output\_efs\_file\_system\_ids) | ID of EFS |
+| <a name="output_efs_mount_target_dns_names"></a> [efs\_mount\_target\_dns\_names](#output\_efs\_mount\_target\_dns\_names) | DNS NAME of EFS Mount Target |
+| <a name="output_efs_mount_target_ids"></a> [efs\_mount\_target\_ids](#output\_efs\_mount\_target\_ids) | MOUNT TARGED ID of EFS |
+| <a name="output_sftp_server_id"></a> [sftp\_server\_id](#output\_sftp\_server\_id) | ID of SFTP server |
+| <a name="output_sftp_user_home_directory"></a> [sftp\_user\_home\_directory](#output\_sftp\_user\_home\_directory) | HOME\_DIR for SFTP user |
+| <a name="output_sftp_user_id"></a> [sftp\_user\_id](#output\_sftp\_user\_id) | ID of SFTP user |
+| <a name="output_sftp_user_key"></a> [sftp\_user\_key](#output\_sftp\_user\_key) | SSH Private Key for SFTP User |
+| <a name="output_sftp_user_name"></a> [sftp\_user\_name](#output\_sftp\_user\_name) | NAME of SFTP user |
 <!-- END_TF_DOCS -->

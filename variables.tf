@@ -32,6 +32,7 @@ variable "security_groups" {
 ### EFS
 variable "efs_name" {
   description = "The name of the EFS file system"
+  default     = []
 }
 
 
@@ -50,9 +51,11 @@ variable "create_sftp_user" {
 
 variable "sftp_name" {
   description = "The name of the SFTP server"
+  default     = []
 }
 
 variable "sftp_user_name" {
   description = "The username for the SFTP user"
+  default     = []
 }
 
