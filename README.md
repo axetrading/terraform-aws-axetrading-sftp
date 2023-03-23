@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 # AWS SFTP with EFS Terraform Module
 
-This module set up EFS with AWS Transfer Family for accessing AxeTrading server files for managed service customers.
+This module set up EFS with AWS Transfer Family for accessing server files for managed service customers.
 
 # Connect to sftp server: 
 sftp -i path-to-private-key sftp_username@sftp_server_address
