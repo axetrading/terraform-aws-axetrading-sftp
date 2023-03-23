@@ -26,27 +26,27 @@ output "efs_mount_target_dns_names" {
 
 ### SFTP 
 output "sftp_user_key" {
-  value       = tls_private_key.sftp_key.private_key_pem
+  value       = try(tls_private_key.sftp_key.private_key_pem, "")
   description = "SSH Private Key for SFTP User"
 }
 
 output "sftp_server_id" {
-  value       = aws_transfer_server.sftp_server[0].id
+  value       = try(aws_transfer_server.sftp_server[0].id, "")
   description = "ID of SFTP server"
 }
 
 output "sftp_user_id" {
-  value       = aws_transfer_user.sftp_user[0].id
+  value       = try(aws_transfer_user.sftp_user[0].id, "")
   description = "ID of SFTP user"
 }
 
 output "sftp_user_name" {
-  value       = aws_transfer_user.sftp_user[0].user_name
+  value       = try(aws_transfer_user.sftp_user[0].user_name, "")
   description = "NAME of SFTP user"
 }
 
 output "sftp_user_home_directory" {
-  value       = aws_transfer_user.sftp_user[0].home_directory
+  value       = try(aws_transfer_user.sftp_user[0].home_directory, "")
   description = "HOME_DIR for SFTP user"
 }
 

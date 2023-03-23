@@ -1,15 +1,8 @@
 <!-- BEGIN_TF_DOCS -->
-# AWS SFTP Terraform Module
+# AWS SFTP with EFS Terraform Module
 
 This module set up EFS with AWS Transfer Family for accessing AxeTrading server files for managed service customers.
-
-Connect to sftp server:
-sftp -i path-to-private-key sftp_username@sftp_server_address
-
-Mounting instructions:
-sudo mount -t efs -o tls EFS_NAME:/ efs   # where EFS_NAME = ID of EFS
-
-
+In this way you connect to sftp server: sftp -i <path-to-private-key> <username>@<server-address>
 
 ## Requirements
 
@@ -49,6 +42,7 @@ sudo mount -t efs -o tls EFS_NAME:/ efs   # where EFS_NAME = ID of EFS
 | <a name="input_create_sftp_server"></a> [create\_sftp\_server](#input\_create\_sftp\_server) | Flag to create an AWS Transfer Family SFTP server | `bool` | `false` | no |
 | <a name="input_create_sftp_user"></a> [create\_sftp\_user](#input\_create\_sftp\_user) | Flag to create an AWS Transfer Family SFTP server | `bool` | `false` | no |
 | <a name="input_efs_name"></a> [efs\_name](#input\_efs\_name) | The name of the EFS file system | `list` | `[]` | no |
+| <a name="input_efs_tags"></a> [efs\_tags](#input\_efs\_tags) | Tags for EFS | <pre>map(object({<br>    value = string<br>  }))</pre> | <pre>{<br>  "Backup": {<br>    "value": null<br>  },<br>  "Customer": {<br>    "value": null<br>  },<br>  "Environment": {<br>    "value": null<br>  }<br>}</pre> | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | `"eu-west-2"` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | The name of the Security Groups | <pre>list(object({<br>    id = string<br>  }))</pre> | n/a | yes |
 | <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `list` | `[]` | no |

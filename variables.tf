@@ -35,6 +35,18 @@ variable "efs_name" {
   default     = []
 }
 
+variable "efs_tags" {
+  description = "Tags for EFS"
+  type = map(object({
+    value = string
+  }))
+  default = {
+    Customer    = { value = null }
+    Backup      = { value = null }
+    Environment = { value = null }
+  }
+}
+
 
 ### SFTP
 variable "create_sftp_server" {

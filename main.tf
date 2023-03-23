@@ -1,5 +1,5 @@
 /**
- * # AWS SFTP Terraform Module
+ * # AWS SFTP with EFS Terraform Module
  *
  * This module set up EFS with AWS Transfer Family for accessing AxeTrading server files for managed service customers.
  * In this way you connect to sftp server: sftp -i <path-to-private-key> <username>@<server-address>
@@ -52,7 +52,7 @@ resource "tls_private_key" "sftp_key" {
   rsa_bits  = 4096
 }
 
-# Associate SFTP User with SFTP Server
+# Associate SFTP User key with SFTP Server
 resource "aws_transfer_ssh_key" "sftp_ssh_key" {
   count     = var.create_sftp_user ? 1 : 0
   server_id = aws_transfer_server.sftp_server[count.index].id

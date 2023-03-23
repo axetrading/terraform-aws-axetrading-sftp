@@ -11,10 +11,10 @@ resource "aws_efs_file_system" "efs" {
   }
 
   tags = {
-    Name        = "${var.efs_name}-${count.index}"
-    Customer    = "customer"
-    Backup      = "true"
-    Environment = "dev"
+    Name        = var.efs_name
+    Customer    = var.efs_tags.Customer.value
+    Backup      = var.efs_tags.Backup.value
+    Environment = var.efs_tags.Environment.value
   }
 
   encrypted                       = true
