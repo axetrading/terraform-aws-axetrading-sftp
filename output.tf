@@ -6,12 +6,13 @@ output "efs_file_system_id" {
 
 output "efs_mount_target_ids" {
   description = "EFS Mount targets"
-  value       = try(aws_efs_mount_target.mount_target[*].id, "")
+  value       = try(values(aws_efs_mount_target.mount_target)[*].id, [])
+
 }
 
 output "efs_mount_target_dns_names" {
   description = "EFS Mount targets DNS name"
-  value       = try(aws_efs_mount_target.mount_target[*].dns_name, "")
+  value       = try(values(aws_efs_mount_target.mount_target)[*].dns_name, [])
 }
 
 ### SFTP 
