@@ -2,7 +2,13 @@
 # AWS SFTP with EFS Terraform Module
 
 This module set up EFS with AWS Transfer Family for accessing AxeTrading server files for managed service customers.
-In this way you connect to sftp server: sftp -i <path-to-private-key> <username>@<server-address>
+Connect to sftp server:
+sftp -i <path-to-private-key> <username>@<server-address>
+Mounting instructions:
+Run the following command to install the amazon-efs-utils package: sudo yum install -y amazon-efs-utils
+sudo mount -t efs -o tls EFS\_ID:/ EFS\_ID
+sudo chown -R ec2-user:ec2-user EFS\_ID
+sudo chmod -R 755 EFS\_ID
 
 ## Requirements
 
