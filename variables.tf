@@ -11,63 +11,112 @@ variable "vpc_id" {
 }
 
 variable "subnets" {
-  description = "The name of the Subnets"
-  type        = list(string)
-  default     = []
+  description = "A map of subnets to availability zones"
+  type        = map(string)
+  default     = {}
 }
 
-variable "az" {
-  description = "The name of the Availability Zones"
+
+variable "azs" {
+  description = "The names of the availability zones to use for the EFS mount targets"
   type        = list(string)
-  default     = []
+  default     = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
 }
 
 variable "security_groups" {
   description = "The name of the Security Groups"
-  type = list(object({
-    id = string
-  }))
+  type        = list(string)
+  default     = []
 }
+
 
 ### EFS
 variable "efs_name" {
-  description = "The name of the EFS file system"
-  default     = []
+  type        = string
+  description = "Efs name"
+  default     = ""
 }
 
 variable "efs_tags" {
-  description = "Tags for EFS"
-  type = map(object({
-    value = string
-  }))
+  type = map(any)
   default = {
-    Customer    = { value = null }
-    Backup      = { value = null }
-    Environment = { value = null }
+    Name        = null
+    Backup      = null
+    Environment = null
+    Project     = null
   }
 }
 
+variable "performance_mode" {
+  type        = string
+  description = "Efs performance mode"
+  default     = "generalPurpose"
+}
+
+variable "throughput_mode" {
+  type        = string
+  description = "Efs throughput mode"
+  default     = "bursting"
+}
+
+### IAM
+variable "create_iam_role" {
+  description = "Flag to create an IAM role for SFTP users"
+  type        = bool
+  default     = true
+}
+
+variable "provided_iam_role_arn" {
+  type        = string
+  description = "The Amazon Resource Name (ARN) of an existing IAM role that should be used by AWS Backups. The ARN should have the format `arn:aws:iam::account-id:role/role-name`. If not provided, a new IAM role will be created."
+  default     = ""
+  validation {
+    condition     = length(var.provided_iam_role_arn) == 0 || can(regex("^arn:aws:iam::[0-9]{12}:role/.*", var.provided_iam_role_arn))
+    error_message = "The provided IAM role ARN is not valid. The ARN should have the format `arn:aws:iam::account-id:role/role-name`."
+  }
+}
 
 ### SFTP
-variable "create_sftp_server" {
-  description = "Flag to create an AWS Transfer Family SFTP server"
-  type        = bool
-  default     = false
-}
-
-variable "create_sftp_user" {
-  description = "Flag to create an AWS Transfer Family SFTP server"
-  type        = bool
-  default     = false
-}
-
 variable "sftp_name" {
   description = "The name of the SFTP server"
-  default     = []
+  default     = ""
 }
 
-variable "sftp_user_name" {
-  description = "The username for the SFTP user"
-  default     = []
+variable "identity_provider_type" {
+  description = "Identity provider type of the SFTP server"
+  default     = "SERVICE_MANAGED"
 }
 
+variable "endpoint_type" {
+  description = "Endpoint type of the SFTP server"
+  default     = "PUBLIC"
+}
+
+variable "sftp_domain" {
+  description = "Domain type of the SFTP server"
+  default     = "EFS"
+}
+
+variable "home_directory_type" {
+  description = "Home directory type of the SFTP server"
+  default     = "LOGICAL"
+}
+
+variable "sftp_users" {
+  type = map(object({
+    home_directory = string
+    uid            = number
+    gid            = number
+    role_arn       = string
+    public_key     = string
+  }))
+  default = {
+    user1 = {
+      home_directory = ""
+      uid            = 1000
+      gid            = 1000
+      role_arn       = ""
+      public_key     = ""
+    }
+  }
+}

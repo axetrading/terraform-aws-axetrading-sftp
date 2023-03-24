@@ -6,60 +6,56 @@
  *
  */
 
+locals {
+  role_arn = var.create_iam_role ? aws_iam_role.sftp_user_role[0].arn : var.provided_iam_role_arn
+}
 
 # Create AWS Transfer Family SFTP Server
 resource "aws_transfer_server" "sftp_server" {
-  count = var.create_sftp_server ? 1 : 0
-
-  identity_provider_type = "SERVICE_MANAGED"
-  endpoint_type          = "PUBLIC"
-  domain                 = "EFS"
-
-  tags = {
-    Name = "${var.sftp_name}-${count.index}"
+  lifecycle {
+    create_before_destroy = true
   }
+  identity_provider_type = var.identity_provider_type
+  endpoint_type          = var.endpoint_type
+  domain                 = var.sftp_domain
+  tags                   = merge({ Name = var.sftp_name }, { for k, v in var.efs_tags : k => tostring(v) })
 }
 
 # Create AWS Transfer Family SFTP User
 resource "aws_transfer_user" "sftp_user" {
-  count = var.create_sftp_user ? 1 : 0
+  for_each = var.sftp_users
 
-  server_id = aws_transfer_server.sftp_server[count.index].id
-  user_name = var.sftp_user_name
+  server_id = aws_transfer_server.sftp_server.id
+  user_name = each.key
 
-  home_directory_type = "LOGICAL"
+  home_directory_type = var.home_directory_type
   home_directory_mappings {
     entry  = "/"
-    target = "/${aws_efs_file_system.efs[count.index % length(aws_efs_file_system.efs)].id}"
+    target = each.value.home_directory
   }
+
   posix_profile {
-    uid = 1000
-    gid = 1000
+    uid = each.value.uid
+    gid = each.value.gid
   }
 
-  role = aws_iam_role.sftp_user_role[count.index].arn
+  role = local.role_arn
+
   tags = {
-    Name        = "${var.sftp_user_name}-${count.index}"
-    Customer    = "customer"
-    Backup      = "true"
-    Environment = "dev"
+    Name = each.key
   }
+
 }
 
-# Generate RSA Key for SFTP User
-resource "tls_private_key" "sftp_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-# Associate SFTP User key with SFTP Server
+### Asociate SFTP User with his ssh public key
 resource "aws_transfer_ssh_key" "sftp_ssh_key" {
-  count     = var.create_sftp_user ? 1 : 0
-  server_id = aws_transfer_server.sftp_server[count.index].id
-  user_name = aws_transfer_user.sftp_user[count.index].user_name
-  body      = tls_private_key.sftp_key.public_key_openssh
+  for_each  = var.sftp_users
+  server_id = aws_transfer_server.sftp_server.id
+  user_name = each.key
+  body      = each.value.public_key
+  depends_on = [
+    aws_transfer_user.sftp_user
+  ]
 }
-
-
 
 

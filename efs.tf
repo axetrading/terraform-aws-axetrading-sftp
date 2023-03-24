@@ -1,8 +1,6 @@
 resource "aws_efs_file_system" "efs" {
-  count = length(var.az)
-
-  performance_mode = "generalPurpose"
-  throughput_mode  = "bursting"
+  performance_mode = var.performance_mode
+  throughput_mode  = var.throughput_mode
 
   lifecycle {
     ignore_changes = [
@@ -10,26 +8,17 @@ resource "aws_efs_file_system" "efs" {
     ]
   }
 
-  tags = {
-    Name        = var.efs_name
-    Customer    = var.efs_tags.Customer.value
-    Backup      = var.efs_tags.Backup.value
-    Environment = var.efs_tags.Environment.value
-  }
-
+  tags                            = merge({ Name = var.efs_name }, { for k, v in var.efs_tags : k => tostring(v) })
   encrypted                       = true
   provisioned_throughput_in_mibps = 0
-  creation_token                  = "${var.efs_name}-${count.index}"
-  availability_zone_name          = var.az[count.index]
+  creation_token                  = var.efs_name
 }
 
 resource "aws_efs_mount_target" "mount_target" {
-  count = var.subnets != [] && var.security_groups != [] ? length(var.subnets) : 0
-
-  file_system_id = aws_efs_file_system.efs[count.index % length(aws_efs_file_system.efs)].id
-  subnet_id      = var.subnets[count.index]
-
+  for_each       = { for az, subnet_id in var.subnets : az => subnet_id }
+  file_system_id = aws_efs_file_system.efs.id
+  subnet_id      = each.value
   security_groups = [
-    var.security_groups[0].id,
+    element(var.security_groups, index(var.azs, each.key)),
   ]
 }

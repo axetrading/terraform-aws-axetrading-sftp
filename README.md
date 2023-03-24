@@ -1,18 +1,8 @@
 <!-- BEGIN_TF_DOCS -->
 # AWS SFTP with EFS Terraform Module
 
-This module set up EFS with AWS Transfer Family for accessing server files for managed service customers.
-
-# Connect to sftp server: 
-sftp -i path-to-private-key sftp_username@sftp_server_address
-
-# Mounting instructions: 
-sudo mount -t efs -o tls EFS_ID:/ EFS_ID 
-
-sudo chown -R ec2-user:ec2-user EFS_ID
-
-sudo chmod -R 755 EFS_ID
-
+This module set up EFS with AWS Transfer Family for accessing AxeTrading server files for managed service customers.
+In this way you connect to sftp server: sftp -i <path-to-private-key> <username>@<server-address>
 
 ## Requirements
 
@@ -26,7 +16,6 @@ sudo chmod -R 755 EFS_ID
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 4.58.0 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 
 ## Resources
 
@@ -40,7 +29,6 @@ sudo chmod -R 755 EFS_ID
 | [aws_transfer_server.sftp_server](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/transfer_server) | resource |
 | [aws_transfer_ssh_key.sftp_ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/transfer_ssh_key) | resource |
 | [aws_transfer_user.sftp_user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/transfer_user) | resource |
-| [tls_private_key.sftp_key](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.sftp_user_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
@@ -48,30 +36,33 @@ sudo chmod -R 755 EFS_ID
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_az"></a> [az](#input\_az) | The name of the Availability Zones | `list(string)` | `[]` | no |
-| <a name="input_create_sftp_server"></a> [create\_sftp\_server](#input\_create\_sftp\_server) | Flag to create an AWS Transfer Family SFTP server | `bool` | `false` | no |
-| <a name="input_create_sftp_user"></a> [create\_sftp\_user](#input\_create\_sftp\_user) | Flag to create an AWS Transfer Family SFTP server | `bool` | `false` | no |
-| <a name="input_efs_name"></a> [efs\_name](#input\_efs\_name) | The name of the EFS file system | `list` | `[]` | no |
-| <a name="input_efs_tags"></a> [efs\_tags](#input\_efs\_tags) | Tags for EFS | <pre>map(object({<br>    value = string<br>  }))</pre> | <pre>{<br>  "Backup": {<br>    "value": null<br>  },<br>  "Customer": {<br>    "value": null<br>  },<br>  "Environment": {<br>    "value": null<br>  }<br>}</pre> | no |
+| <a name="input_azs"></a> [azs](#input\_azs) | The names of the availability zones to use for the EFS mount targets | `list(string)` | <pre>[<br>  "eu-west-2a",<br>  "eu-west-2b",<br>  "eu-west-2c"<br>]</pre> | no |
+| <a name="input_create_iam_role"></a> [create\_iam\_role](#input\_create\_iam\_role) | Flag to create an IAM role for SFTP users | `bool` | `true` | no |
+| <a name="input_efs_name"></a> [efs\_name](#input\_efs\_name) | Efs name | `string` | `""` | no |
+| <a name="input_efs_tags"></a> [efs\_tags](#input\_efs\_tags) | n/a | `map(any)` | <pre>{<br>  "Backup": null,<br>  "Environment": null,<br>  "Name": null,<br>  "Project": null<br>}</pre> | no |
+| <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint type of the SFTP server | `string` | `"PUBLIC"` | no |
+| <a name="input_home_directory_type"></a> [home\_directory\_type](#input\_home\_directory\_type) | Home directory type of the SFTP server | `string` | `"LOGICAL"` | no |
+| <a name="input_identity_provider_type"></a> [identity\_provider\_type](#input\_identity\_provider\_type) | Identity provider type of the SFTP server | `string` | `"SERVICE_MANAGED"` | no |
+| <a name="input_performance_mode"></a> [performance\_mode](#input\_performance\_mode) | Efs performance mode | `string` | `"generalPurpose"` | no |
+| <a name="input_provided_iam_role_arn"></a> [provided\_iam\_role\_arn](#input\_provided\_iam\_role\_arn) | The Amazon Resource Name (ARN) of an existing IAM role that should be used by AWS Backups. The ARN should have the format `arn:aws:iam::account-id:role/role-name`. If not provided, a new IAM role will be created. | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | `"eu-west-2"` | no |
-| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | The name of the Security Groups | <pre>list(object({<br>    id = string<br>  }))</pre> | n/a | yes |
-| <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `list` | `[]` | no |
-| <a name="input_sftp_user_name"></a> [sftp\_user\_name](#input\_sftp\_user\_name) | The username for the SFTP user | `list` | `[]` | no |
-| <a name="input_subnets"></a> [subnets](#input\_subnets) | The name of the Subnets | `list(string)` | `[]` | no |
+| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | The name of the Security Groups | `list(string)` | `[]` | no |
+| <a name="input_sftp_domain"></a> [sftp\_domain](#input\_sftp\_domain) | Domain type of the SFTP server | `string` | `"EFS"` | no |
+| <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `string` | `""` | no |
+| <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | n/a | <pre>map(object({<br>    home_directory = string<br>    uid            = number<br>    gid            = number<br>    role_arn       = string<br>    public_key     = string<br>  }))</pre> | <pre>{<br>  "user1": {<br>    "gid": 1000,<br>    "home_directory": "",<br>    "public_key": "",<br>    "role_arn": "",<br>    "uid": 1000<br>  }<br>}</pre> | no |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | A map of subnets to availability zones | `map(string)` | `{}` | no |
+| <a name="input_throughput_mode"></a> [throughput\_mode](#input\_throughput\_mode) | Efs throughput mode | `string` | `"bursting"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The name of the VPC where you want to create the resources | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_efs_file_system_arns"></a> [efs\_file\_system\_arns](#output\_efs\_file\_system\_arns) | ARN of EFS |
-| <a name="output_efs_file_system_dns_names"></a> [efs\_file\_system\_dns\_names](#output\_efs\_file\_system\_dns\_names) | DNS NAME of EFS |
-| <a name="output_efs_file_system_ids"></a> [efs\_file\_system\_ids](#output\_efs\_file\_system\_ids) | ID of EFS |
-| <a name="output_efs_mount_target_dns_names"></a> [efs\_mount\_target\_dns\_names](#output\_efs\_mount\_target\_dns\_names) | DNS NAME of EFS Mount Target |
-| <a name="output_efs_mount_target_ids"></a> [efs\_mount\_target\_ids](#output\_efs\_mount\_target\_ids) | MOUNT TARGED ID of EFS |
-| <a name="output_sftp_server_id"></a> [sftp\_server\_id](#output\_sftp\_server\_id) | ID of SFTP server |
-| <a name="output_sftp_user_home_directory"></a> [sftp\_user\_home\_directory](#output\_sftp\_user\_home\_directory) | HOME\_DIR for SFTP user |
-| <a name="output_sftp_user_id"></a> [sftp\_user\_id](#output\_sftp\_user\_id) | ID of SFTP user |
-| <a name="output_sftp_user_key"></a> [sftp\_user\_key](#output\_sftp\_user\_key) | SSH Private Key for SFTP User |
-| <a name="output_sftp_user_name"></a> [sftp\_user\_name](#output\_sftp\_user\_name) | NAME of SFTP user |
+| <a name="output_efs_file_system_id"></a> [efs\_file\_system\_id](#output\_efs\_file\_system\_id) | ## EFS |
+| <a name="output_efs_mount_target_dns_names"></a> [efs\_mount\_target\_dns\_names](#output\_efs\_mount\_target\_dns\_names) | n/a |
+| <a name="output_efs_mount_target_ids"></a> [efs\_mount\_target\_ids](#output\_efs\_mount\_target\_ids) | n/a |
+| <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | ## IAM |
+| <a name="output_sftp_server_arn"></a> [sftp\_server\_arn](#output\_sftp\_server\_arn) | ## SFTP |
+| <a name="output_sftp_server_id"></a> [sftp\_server\_id](#output\_sftp\_server\_id) | n/a |
+| <a name="output_sftp_user_usernames"></a> [sftp\_user\_usernames](#output\_sftp\_user\_usernames) | n/a |
 <!-- END_TF_DOCS -->

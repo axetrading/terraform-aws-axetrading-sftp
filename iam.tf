@@ -1,5 +1,5 @@
 resource "aws_iam_role" "sftp_user_role" {
-  count = var.create_sftp_server ? 1 : 0
+  count = var.create_iam_role ? 1 : 0
 
   name = "${var.sftp_name}-role"
   assume_role_policy = jsonencode({
@@ -17,7 +17,7 @@ resource "aws_iam_role" "sftp_user_role" {
 }
 
 resource "aws_iam_policy" "sftp_user_policy" {
-  count = var.create_sftp_server ? 1 : 0
+  count = var.create_iam_role ? 1 : 0
 
   name   = "${var.sftp_name}-policy"
   path   = "/"
@@ -25,7 +25,7 @@ resource "aws_iam_policy" "sftp_user_policy" {
 }
 
 data "aws_iam_policy_document" "sftp_user_policy" {
-  count = var.create_sftp_server ? 1 : 0
+  count = var.create_iam_role ? 1 : 0
 
   statement {
     effect = "Allow"
@@ -39,13 +39,13 @@ data "aws_iam_policy_document" "sftp_user_policy" {
     ]
 
     resources = [
-      aws_efs_file_system.efs[0].arn
+      aws_efs_file_system.efs.arn
     ]
   }
 }
 
 resource "aws_iam_role_policy_attachment" "sftp_user_policy_attachment" {
-  count      = var.create_sftp_server ? 1 : 0
+  count      = var.create_iam_role ? 1 : 0
   policy_arn = aws_iam_policy.sftp_user_policy[count.index].arn
   role       = aws_iam_role.sftp_user_role[count.index].name
 }
