@@ -23,20 +23,20 @@ variable "security_group_rules" {
 }
 
 variable "create_security_group" {
-  description = "Determines whether to create security group for RDS cluster"
+  description = "Determines whether to create security group for EFS Mount"
   type        = bool
   default     = true
 }
 
 variable "security_group_name" {
   type        = string
-  description = "RDS Security Group Name"
+  description = "Security Group Name"
   default     = ""
 }
 
 variable "security_groups" {
   type        = list(string)
-  description = "A list of security group ids that should be attached to lambda function"
+  description = "A list of security group ids that should be attached to EFS Mount"
   default     = []
 }
 
