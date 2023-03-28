@@ -28,7 +28,7 @@ sudo chmod -R 755 EFS\_ID
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.58.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.50 |
 
 ## Resources
 

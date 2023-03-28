@@ -114,7 +114,6 @@ variable "sftp_users" {
     home_directory = string
     uid            = number
     gid            = number
-    role_arn       = string
     public_key     = string
   }))
   default = {
@@ -122,7 +121,6 @@ variable "sftp_users" {
       home_directory = ""
       uid            = 1000
       gid            = 1000
-      role_arn       = ""
       public_key     = ""
     }
   }
