@@ -65,7 +65,7 @@ sudo chmod -R 755 EFS\_ID
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | A list of security group ids that should be attached to lambda function | `list(string)` | `[]` | no |
 | <a name="input_sftp_domain"></a> [sftp\_domain](#input\_sftp\_domain) | Domain type of the SFTP server | `string` | `"EFS"` | no |
 | <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `string` | `""` | no |
-| <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | n/a | <pre>map(object({<br>    home_directory = string<br>    uid            = number<br>    gid            = number<br>    role_arn       = string<br>    public_key     = string<br>  }))</pre> | <pre>{<br>  "user1": {<br>    "gid": 1000,<br>    "home_directory": "",<br>    "public_key": "",<br>    "role_arn": "",<br>    "uid": 1000<br>  }<br>}</pre> | no |
+| <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | n/a | <pre>map(object({<br>    home_directory = string<br>    uid            = number<br>    gid            = number<br>    public_key     = string<br>  }))</pre> | <pre>{<br>  "user1": {<br>    "gid": 1000,<br>    "home_directory": "",<br>    "public_key": "",<br>    "uid": 1000<br>  }<br>}</pre> | no |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | A map of subnets to availability zones | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `{}` | no |
 | <a name="input_throughput_mode"></a> [throughput\_mode](#input\_throughput\_mode) | Efs throughput mode | `string` | `"bursting"` | no |
