@@ -8,8 +8,8 @@ resource "aws_efs_file_system" "efs" {
 }
 
 resource "aws_efs_mount_target" "mount_target" {
-  for_each       = toset(var.subnets)
-  file_system_id = aws_efs_file_system.efs.id
-  subnet_id      = each.value
+  for_each        = toset(var.subnets)
+  file_system_id  = aws_efs_file_system.efs.id
+  subnet_id       = each.value
   security_groups = var.create_security_group ? compact(concat([aws_security_group.this[0].id], var.security_groups)) : var.security_groups
 }

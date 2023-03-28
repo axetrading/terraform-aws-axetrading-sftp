@@ -2,9 +2,9 @@
 resource "aws_security_group" "this" {
   count = var.create_security_group ? 1 : 0
 
-  name = var.security_group_name
+  name   = var.security_group_name
   vpc_id = var.vpc_id
-  tags = var.tags
+  tags   = var.tags
 
   lifecycle {
     create_before_destroy = true
