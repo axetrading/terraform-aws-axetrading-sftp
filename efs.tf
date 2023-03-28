@@ -1,24 +1,15 @@
 resource "aws_efs_file_system" "efs" {
-  performance_mode = var.performance_mode
-  throughput_mode  = var.throughput_mode
-
-  lifecycle {
-    ignore_changes = [
-      tags
-    ]
-  }
-
-  tags                            = merge({ Name = var.efs_name }, { for k, v in var.efs_tags : k => tostring(v) })
-  encrypted                       = true
-  provisioned_throughput_in_mibps = 0
   creation_token                  = var.efs_name
+  encrypted                       = true
+  performance_mode                = var.performance_mode
+  provisioned_throughput_in_mibps = 0
+  tags                            = merge({ Name = var.efs_name }, var.tags)
+  throughput_mode                 = var.throughput_mode
 }
 
 resource "aws_efs_mount_target" "mount_target" {
-  for_each       = { for az, subnet_id in var.subnets : az => subnet_id }
+  for_each       = toset(var.subnets)
   file_system_id = aws_efs_file_system.efs.id
   subnet_id      = each.value
-  security_groups = [
-    element(var.security_groups, index(var.azs, each.key)),
-  ]
+  security_groups = var.create_security_group ? compact(concat([aws_security_group.this[0].id], var.security_groups)) : var.security_groups
 }

@@ -30,7 +30,7 @@ resource "aws_transfer_server" "sftp_server" {
   identity_provider_type = var.identity_provider_type
   endpoint_type          = var.endpoint_type
   domain                 = var.sftp_domain
-  tags                   = merge({ Name = var.sftp_name }, { for k, v in var.efs_tags : k => tostring(v) })
+  tags                   = merge({ Name = var.sftp_name }, var.tags)
 }
 
 # Create AWS Transfer Family SFTP User

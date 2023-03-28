@@ -12,20 +12,31 @@ variable "vpc_id" {
 
 variable "subnets" {
   description = "A map of subnets to availability zones"
-  type        = map(string)
+  type        = list(string)
+  default     = []
+}
+
+variable "security_group_rules" {
+  description = "A map of security group  rule definitions to add to the security group created"
+  type        = map(any)
   default     = {}
 }
 
+variable "create_security_group" {
+  description = "Determines whether to create security group for RDS cluster"
+  type        = bool
+  default     = true
+}
 
-variable "azs" {
-  description = "The names of the availability zones to use for the EFS mount targets"
-  type        = list(string)
-  default     = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+variable "security_group_name" {
+  type        = string
+  description = "RDS Security Group Name"
+  default     = ""
 }
 
 variable "security_groups" {
-  description = "The name of the Security Groups"
   type        = list(string)
+  description = "A list of security group ids that should be attached to lambda function"
   default     = []
 }
 
@@ -37,15 +48,11 @@ variable "efs_name" {
   default     = ""
 }
 
-variable "efs_tags" {
-  type = map(any)
-  default = {
-    Name        = null
-    Backup      = null
-    Environment = null
-    Project     = null
-  }
+variable "tags" {
+  type = map(string)
+  default = {}
 }
+
 
 variable "performance_mode" {
   type        = string
