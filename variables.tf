@@ -104,9 +104,14 @@ variable "sftp_domain" {
   default     = "EFS"
 }
 
+variable "home_directory" {
+  description = "Home directory type of the SFTP server"
+  default     = ""
+}
+
 variable "home_directory_type" {
   description = "Home directory type of the SFTP server"
-  default     = "LOGICAL"
+  default     = "PATH"
 }
 
 variable "sftp_users" {

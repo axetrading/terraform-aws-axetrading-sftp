@@ -41,10 +41,7 @@ resource "aws_transfer_user" "sftp_user" {
   user_name = each.key
 
   home_directory_type = var.home_directory_type
-  home_directory_mappings {
-    entry  = "/"
-    target = each.value.home_directory
-  }
+  home_directory = each.value.home_directory
 
   posix_profile {
     uid = each.value.uid
