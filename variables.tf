@@ -116,17 +116,15 @@ variable "home_directory_type" {
 
 variable "sftp_users" {
   type = map(object({
-    home_directory = string
-    uid            = number
-    gid            = number
-    public_key     = string
+    uid        = number
+    gid        = number
+    public_key = string
   }))
   default = {
     user1 = {
-      home_directory = ""
-      uid            = 1000
-      gid            = 1000
-      public_key     = ""
+      uid        = 1000
+      gid        = 1000
+      public_key = ""
     }
   }
 }

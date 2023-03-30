@@ -55,7 +55,8 @@ sudo chmod -R 755 EFS\_ID
 | <a name="input_create_security_group"></a> [create\_security\_group](#input\_create\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `true` | no |
 | <a name="input_efs_name"></a> [efs\_name](#input\_efs\_name) | Efs name | `string` | `""` | no |
 | <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint type of the SFTP server | `string` | `"PUBLIC"` | no |
-| <a name="input_home_directory_type"></a> [home\_directory\_type](#input\_home\_directory\_type) | Home directory type of the SFTP server | `string` | `"LOGICAL"` | no |
+| <a name="input_home_directory"></a> [home\_directory](#input\_home\_directory) | Home directory type of the SFTP server | `string` | `""` | no |
+| <a name="input_home_directory_type"></a> [home\_directory\_type](#input\_home\_directory\_type) | Home directory type of the SFTP server | `string` | `"PATH"` | no |
 | <a name="input_identity_provider_type"></a> [identity\_provider\_type](#input\_identity\_provider\_type) | Identity provider type of the SFTP server | `string` | `"SERVICE_MANAGED"` | no |
 | <a name="input_performance_mode"></a> [performance\_mode](#input\_performance\_mode) | Efs performance mode | `string` | `"generalPurpose"` | no |
 | <a name="input_provided_iam_role_arn"></a> [provided\_iam\_role\_arn](#input\_provided\_iam\_role\_arn) | The Amazon Resource Name (ARN) of an existing IAM role that should be used by AWS Backups. The ARN should have the format `arn:aws:iam::account-id:role/role-name`. If not provided, a new IAM role will be created. | `string` | `""` | no |
