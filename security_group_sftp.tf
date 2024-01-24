@@ -1,8 +1,8 @@
 
-resource "aws_security_group" "this" {
-  count = var.create_security_group ? 1 : 0
+resource "aws_security_group" "sftp" {
+  count = var.create_sftp_security_group ? 1 : 0
 
-  name   = var.security_group_name
+  name   = var.sftp_security_group_name
   vpc_id = var.vpc_id
   tags   = var.tags
 
@@ -12,10 +12,10 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_security_group_rule" "this" {
-  for_each = { for k, v in var.security_group_rules : k => v if var.create_security_group }
+  for_each = { for k, v in var.sftp_security_group_rules : k => v if var.create_sftp_security_group }
 
   # Required
-  security_group_id = aws_security_group.this[0].id
+  security_group_id = aws_security_group.sftp[0].id
   protocol          = each.value.protocol
   from_port         = each.value.from_port
   to_port           = each.value.to_port
