@@ -37,8 +37,10 @@ resource "aws_transfer_server" "sftp_server" {
   dynamic "endpoint_details" {
     for_each = var.vpc_id != null ? [1] : []
     content {
-      subnet_ids = var.subnets
-      vpc_id     = var.vpc_id
+      subnet_ids             = var.subnets
+      vpc_id                 = var.vpc_id
+      security_group_ids       = var.create_sftp_security_group ? compact(concat([aws_security_group.sftp[0].id], var.sftp_security_group_ids)) : var.sftp_security_group_ids
+      address_allocation_ids = var.is_public ? aws_eip.eip.*.id : var.eip_ids
     }
   }
 

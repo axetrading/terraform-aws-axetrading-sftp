@@ -17,19 +17,37 @@ variable "subnets" {
   default     = []
 }
 
-variable "security_group_rules" {
-  description = "A map of security group  rule definitions to add to the security group created"
+variable "efs_security_group_rules" {
+  description = "A map of security group rule definitions to add to the security group created"
   type        = map(any)
   default     = {}
 }
 
-variable "create_security_group" {
+variable "sftp_security_group_rules" {
+  description = "A map of security group rule definitions to add to the security group created"
+  type        = map(any)
+  default     = {}
+}
+
+variable "create_efs_security_group" {
   description = "Determines whether to create security group for EFS Mount"
   type        = bool
   default     = true
 }
 
-variable "security_group_name" {
+variable "create_sftp_security_group" {
+  description = "Determines whether to create security group for EFS Mount"
+  type        = bool
+  default     = true
+}
+
+variable "efs_security_group_name" {
+  type        = string
+  description = "Security Group Name"
+  default     = ""
+}
+
+variable "sftp_security_group_name" {
   type        = string
   description = "Security Group Name"
   default     = ""
@@ -145,4 +163,22 @@ variable "logging_enabled" {
   type        = bool
   description = "Enable logging for the SFTP server - the logs will be stored in CloudWatch"
   default     = false
+}
+
+variable "is_public" {
+  type        = bool
+  description = "Determines whether the SFTP server should be publicly accessible"
+  default     = false
+}
+
+variable "eip_ids" {
+  type        = list(string)
+  description = "A list of Elastic IP IDs to associate with the SFTP server"
+  default     = []
+}
+
+variable "sftp_security_group_ids" {
+  type        = list(string)
+  description = "A list of security group ids that should be attached to the SFTP server"
+  default     = []
 }
