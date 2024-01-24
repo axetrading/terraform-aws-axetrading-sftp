@@ -8,6 +8,7 @@ variable "region" {
 variable "vpc_id" {
   description = "The name of the VPC where you want to create the resources"
   type        = string
+  default     = null
 }
 
 variable "subnets" {
@@ -95,11 +96,13 @@ variable "identity_provider_type" {
 }
 
 variable "endpoint_type" {
+  type        = string
   description = "Endpoint type of the SFTP server"
   default     = "PUBLIC"
 }
 
 variable "sftp_domain" {
+  type        = string
   description = "Domain type of the SFTP server"
   default     = "EFS"
 }
@@ -107,14 +110,17 @@ variable "sftp_domain" {
 variable "home_directory" {
   description = "Home directory type of the SFTP server"
   default     = ""
+  type        = string
 }
 
 variable "home_directory_type" {
   description = "Home directory type of the SFTP server"
   default     = "PATH"
+  type        = string
 }
 
 variable "sftp_users" {
+  description = "A map of SFTP users to create"
   type = map(object({
     uid        = number
     gid        = number
@@ -127,4 +133,10 @@ variable "sftp_users" {
       public_key = ""
     }
   }
+}
+
+variable "security_policy_name" {
+  type        = string
+  description = "Specifies the name of the security policy that is attached to the server. Possible values are TransferSecurityPolicy-2018-11, TransferSecurityPolicy-2020-06, and TransferSecurityPolicy-2023-05. Default value is: TransferSecurityPolicy-2023-05."
+  default     = "TransferSecurityPolicy-2023-05"
 }

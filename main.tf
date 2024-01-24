@@ -28,9 +28,21 @@ resource "aws_transfer_server" "sftp_server" {
     create_before_destroy = true
   }
   identity_provider_type = var.identity_provider_type
-  endpoint_type          = var.endpoint_type
+  protocols              = ["SFTP"]
+  endpoint_type          = var.vpc_id != null ? "VPC" : "PUBLIC"
+  security_policy_name   = var.security_policy_name
   domain                 = var.sftp_domain
-  tags                   = merge({ Name = var.sftp_name }, var.tags)
+  logging_role           = var.logging_role
+
+  dynamic "endpoint_details" {
+    for_each = var.vpc_id != null ? [1] : []
+    content {
+      subnet_ids = var.subnets
+      vpc_id     = var.vpc_id
+    }
+  }
+
+  tags = merge({ Name = var.sftp_name }, var.tags)
 }
 
 # Create AWS Transfer Family SFTP User

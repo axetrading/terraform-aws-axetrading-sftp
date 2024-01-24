@@ -64,13 +64,14 @@ sudo chmod -R 755 EFS\_ID
 | <a name="input_security_group_name"></a> [security\_group\_name](#input\_security\_group\_name) | Security Group Name | `string` | `""` | no |
 | <a name="input_security_group_rules"></a> [security\_group\_rules](#input\_security\_group\_rules) | A map of security group  rule definitions to add to the security group created | `map(any)` | `{}` | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | A list of security group ids that should be attached to EFS Mount | `list(string)` | `[]` | no |
+| <a name="input_security_policy_name"></a> [security\_policy\_name](#input\_security\_policy\_name) | Specifies the name of the security policy that is attached to the server. Possible values are TransferSecurityPolicy-2018-11, TransferSecurityPolicy-2020-06, and TransferSecurityPolicy-2023-05. Default value is: TransferSecurityPolicy-2023-05. | `string` | `"TransferSecurityPolicy-2023-05"` | no |
 | <a name="input_sftp_domain"></a> [sftp\_domain](#input\_sftp\_domain) | Domain type of the SFTP server | `string` | `"EFS"` | no |
 | <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `string` | `""` | no |
-| <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | n/a | <pre>map(object({<br>    uid        = number<br>    gid        = number<br>    public_key = string<br>  }))</pre> | <pre>{<br>  "user1": {<br>    "gid": 1000,<br>    "public_key": "",<br>    "uid": 1000<br>  }<br>}</pre> | no |
+| <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | A map of SFTP users to create | <pre>map(object({<br>    uid        = number<br>    gid        = number<br>    public_key = string<br>  }))</pre> | <pre>{<br>  "user1": {<br>    "gid": 1000,<br>    "public_key": "",<br>    "uid": 1000<br>  }<br>}</pre> | no |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | A map of subnets to availability zones | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `{}` | no |
 | <a name="input_throughput_mode"></a> [throughput\_mode](#input\_throughput\_mode) | Efs throughput mode | `string` | `"bursting"` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The name of the VPC where you want to create the resources | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The name of the VPC where you want to create the resources | `string` | `null` | no |
 
 ## Outputs
 
