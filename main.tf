@@ -32,7 +32,7 @@ resource "aws_transfer_server" "sftp_server" {
   endpoint_type          = var.vpc_id != null ? "VPC" : "PUBLIC"
   security_policy_name   = var.security_policy_name
   domain                 = var.sftp_domain
-  logging_role           = var.logging_role
+  logging_role           = var.logging_enabled ? aws_iam_role.logging[0].arn : null
 
   dynamic "endpoint_details" {
     for_each = var.vpc_id != null ? [1] : []

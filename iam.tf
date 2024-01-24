@@ -24,28 +24,27 @@ resource "aws_iam_policy" "sftp_user_policy" {
   policy = data.aws_iam_policy_document.sftp_user_policy[count.index].json
 }
 
-data "aws_iam_policy_document" "sftp_user_policy" {
-  count = var.create_iam_role ? 1 : 0
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "elasticfilesystem:ClientMount",
-      "elasticfilesystem:ClientRootAccess",
-      "elasticfilesystem:ClientRead",
-      "elasticfilesystem:ClientExecute",
-      "elasticfilesystem:DescribeMountTargets",
-      "elasticfilesystem:ClientWrite"
-    ]
-
-    resources = [
-      aws_efs_file_system.efs.arn
-    ]
-  }
-}
-
 resource "aws_iam_role_policy_attachment" "sftp_user_policy_attachment" {
   count      = var.create_iam_role ? 1 : 0
   policy_arn = aws_iam_policy.sftp_user_policy[count.index].arn
   role       = aws_iam_role.sftp_user_role[count.index].name
+}
+
+resource "aws_iam_policy" "logging" {
+  count = var.logging_enabled ? 1 : 0
+
+  name_prefix = "${var.sftp_name}-logging-"
+  policy      = join("", data.aws_iam_policy_document.logging[*].json)
+
+  tags = var.tags
+}
+
+resource "aws_iam_role" "logging" {
+  count = logging_enabled ? 1 : 0
+
+  name_prefix         = "${var.sftp_name}-logging-"
+  assume_role_policy  = join("", data.aws_iam_policy_document.assume_role_policy[*].json)
+  managed_policy_arns = [join("", aws_iam_policy.logging[*].arn)]
+
+  tags = var.tags
 }

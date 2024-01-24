@@ -140,3 +140,9 @@ variable "security_policy_name" {
   description = "Specifies the name of the security policy that is attached to the server. Possible values are TransferSecurityPolicy-2018-11, TransferSecurityPolicy-2020-06, and TransferSecurityPolicy-2023-05. Default value is: TransferSecurityPolicy-2023-05."
   default     = "TransferSecurityPolicy-2023-05"
 }
+
+variable "logging_enabled" {
+  type        = bool
+  description = "Enable logging for the SFTP server - the logs will be stored in CloudWatch"
+  default     = false
+}
