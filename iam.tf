@@ -40,7 +40,7 @@ resource "aws_iam_policy" "logging" {
 }
 
 resource "aws_iam_role" "logging" {
-  count = logging_enabled ? 1 : 0
+  count = var.logging_enabled ? 1 : 0
 
   name_prefix         = "${var.sftp_name}-logging-"
   assume_role_policy  = join("", data.aws_iam_policy_document.assume_role_policy[*].json)
