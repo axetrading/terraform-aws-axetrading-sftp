@@ -48,3 +48,16 @@ output "sftp_elastic_ips" {
   description = "Provisioned Elastic IPs"
   value       = var.is_public ? aws_eip.eip.*.id : null
 }
+
+
+# Security Groups
+
+output "sftp_security_group_id" {
+  description = "SFTP Security Group ID"
+  value       = try(aws_security_group.sftp[0].id, "")
+}
+
+output "efs_security_group_id" {
+  description = "EFS Security Group ID"
+  value       = try(aws_security_group.efs[0].id, "")
+}

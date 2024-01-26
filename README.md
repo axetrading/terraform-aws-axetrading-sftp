@@ -94,8 +94,10 @@ sudo chmod -R 755 EFS\_ID
 | <a name="output_efs_file_system_id"></a> [efs\_file\_system\_id](#output\_efs\_file\_system\_id) | EFS ID |
 | <a name="output_efs_mount_target_dns_names"></a> [efs\_mount\_target\_dns\_names](#output\_efs\_mount\_target\_dns\_names) | EFS Mount targets DNS name |
 | <a name="output_efs_mount_target_ids"></a> [efs\_mount\_target\_ids](#output\_efs\_mount\_target\_ids) | EFS Mount targets |
+| <a name="output_efs_security_group_id"></a> [efs\_security\_group\_id](#output\_efs\_security\_group\_id) | EFS Security Group ID |
 | <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | IAM ROLE ARN used for SFTP users |
 | <a name="output_sftp_elastic_ips"></a> [sftp\_elastic\_ips](#output\_sftp\_elastic\_ips) | Provisioned Elastic IPs |
+| <a name="output_sftp_security_group_id"></a> [sftp\_security\_group\_id](#output\_sftp\_security\_group\_id) | SFTP Security Group ID |
 | <a name="output_sftp_server_arn"></a> [sftp\_server\_arn](#output\_sftp\_server\_arn) | SFTP SERVER ARN |
 | <a name="output_sftp_server_endpoint"></a> [sftp\_server\_endpoint](#output\_sftp\_server\_endpoint) | SFTP SERVER ENDPOINT |
 | <a name="output_sftp_server_id"></a> [sftp\_server\_id](#output\_sftp\_server\_id) | SFTP SERVER ID |
