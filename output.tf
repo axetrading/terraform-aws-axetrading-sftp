@@ -31,8 +31,20 @@ output "sftp_user_usernames" {
   value       = [for user in aws_transfer_user.sftp_user : user.user_name]
 }
 
+output "sftp_server_endpoint" {
+  description = "SFTP SERVER ENDPOINT"
+  value       = try(aws_transfer_server.sftp_server.endpoint, "")
+}
+
+
 ### IAM
 output "iam_role_arn" {
   description = "IAM ROLE ARN used for SFTP users"
   value       = aws_iam_role.sftp_user_role[0].arn
+}
+
+### EIP
+output "sftp_elastic_ips" {
+  description = "Provisioned Elastic IPs"
+  value       = var.is_public ? aws_eip.sftp.*.id : null
 }
