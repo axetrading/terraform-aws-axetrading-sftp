@@ -60,11 +60,11 @@ sudo chmod -R 755 EFS\_ID
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_efs_security_group"></a> [create\_efs\_security\_group](#input\_create\_efs\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `true` | no |
 | <a name="input_create_iam_role"></a> [create\_iam\_role](#input\_create\_iam\_role) | Flag to create an IAM role for SFTP users | `bool` | `true` | no |
-| <a name="input_create_sftp_security_group"></a> [create\_sftp\_security\_group](#input\_create\_sftp\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `true` | no |
+| <a name="input_create_sftp_security_group"></a> [create\_sftp\_security\_group](#input\_create\_sftp\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `false` | no |
 | <a name="input_efs_name"></a> [efs\_name](#input\_efs\_name) | Efs name | `string` | `""` | no |
 | <a name="input_efs_security_group_name"></a> [efs\_security\_group\_name](#input\_efs\_security\_group\_name) | Security Group Name | `string` | `""` | no |
 | <a name="input_efs_security_group_rules"></a> [efs\_security\_group\_rules](#input\_efs\_security\_group\_rules) | A map of security group rule definitions to add to the security group created | `map(any)` | `{}` | no |
-| <a name="input_eip_ids"></a> [eip\_ids](#input\_eip\_ids) | A list of Elastic IP IDs to associate with the SFTP server | `list(string)` | `[]` | no |
+| <a name="input_eip_ids"></a> [eip\_ids](#input\_eip\_ids) | A list of Elastic IP IDs to associate with the SFTP server | `list(string)` | `null` | no |
 | <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint type of the SFTP server | `string` | `"PUBLIC"` | no |
 | <a name="input_home_directory"></a> [home\_directory](#input\_home\_directory) | Home directory type of the SFTP server | `string` | `""` | no |
 | <a name="input_home_directory_type"></a> [home\_directory\_type](#input\_home\_directory\_type) | Home directory type of the SFTP server | `string` | `"PATH"` | no |
@@ -78,7 +78,7 @@ sudo chmod -R 755 EFS\_ID
 | <a name="input_security_policy_name"></a> [security\_policy\_name](#input\_security\_policy\_name) | Specifies the name of the security policy that is attached to the server. Possible values are TransferSecurityPolicy-2018-11, TransferSecurityPolicy-2020-06, and TransferSecurityPolicy-2023-05. Default value is: TransferSecurityPolicy-2023-05. | `string` | `"TransferSecurityPolicy-2023-05"` | no |
 | <a name="input_sftp_domain"></a> [sftp\_domain](#input\_sftp\_domain) | Domain type of the SFTP server | `string` | `"EFS"` | no |
 | <a name="input_sftp_name"></a> [sftp\_name](#input\_sftp\_name) | The name of the SFTP server | `string` | `""` | no |
-| <a name="input_sftp_security_group_ids"></a> [sftp\_security\_group\_ids](#input\_sftp\_security\_group\_ids) | A list of security group ids that should be attached to the SFTP server | `list(string)` | `[]` | no |
+| <a name="input_sftp_security_group_ids"></a> [sftp\_security\_group\_ids](#input\_sftp\_security\_group\_ids) | A list of security group ids that should be attached to the SFTP server | `list(string)` | `null` | no |
 | <a name="input_sftp_security_group_name"></a> [sftp\_security\_group\_name](#input\_sftp\_security\_group\_name) | Security Group Name | `string` | `""` | no |
 | <a name="input_sftp_security_group_rules"></a> [sftp\_security\_group\_rules](#input\_sftp\_security\_group\_rules) | A map of security group rule definitions to add to the security group created | `map(any)` | `{}` | no |
 | <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | A map of SFTP users to create | <pre>map(object({<br>    uid        = number<br>    gid        = number<br>    public_key = string<br>  }))</pre> | <pre>{<br>  "user1": {<br>    "gid": 1000,<br>    "public_key": "",<br>    "uid": 1000<br>  }<br>}</pre> | no |

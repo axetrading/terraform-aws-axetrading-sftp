@@ -38,7 +38,7 @@ variable "create_efs_security_group" {
 variable "create_sftp_security_group" {
   description = "Determines whether to create security group for EFS Mount"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "efs_security_group_name" {
@@ -174,11 +174,11 @@ variable "is_public" {
 variable "eip_ids" {
   type        = list(string)
   description = "A list of Elastic IP IDs to associate with the SFTP server"
-  default     = []
+  default     = null
 }
 
 variable "sftp_security_group_ids" {
   type        = list(string)
   description = "A list of security group ids that should be attached to the SFTP server"
-  default     = []
+  default     = null
 }
