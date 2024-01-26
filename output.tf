@@ -46,5 +46,5 @@ output "iam_role_arn" {
 ### EIP
 output "sftp_elastic_ips" {
   description = "Provisioned Elastic IPs"
-  value       = var.is_public ? aws_eip.sftp.*.id : null
+  value       = var.is_public ? aws_eip.eip.*.id : null
 }
