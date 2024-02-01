@@ -2,9 +2,10 @@
 resource "aws_security_group" "sftp" {
   count = var.create_sftp_security_group ? 1 : 0
 
-  name   = var.sftp_security_group_name
-  vpc_id = var.vpc_id
-  tags   = var.tags
+  name        = var.sftp_security_group_name
+  description = "Security Group for SFTP Server"
+  vpc_id      = var.vpc_id
+  tags        = var.tags
 
   lifecycle {
     create_before_destroy = true

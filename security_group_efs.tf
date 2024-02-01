@@ -2,9 +2,10 @@
 resource "aws_security_group" "efs" {
   count = var.create_efs_security_group ? 1 : 0
 
-  name   = var.efs_security_group_name
-  vpc_id = var.vpc_id
-  tags   = var.tags
+  name        = var.efs_security_group_name
+  description = "Security Group for EFS Mount"
+  vpc_id      = var.vpc_id
+  tags        = var.tags
 
   lifecycle {
     create_before_destroy = true

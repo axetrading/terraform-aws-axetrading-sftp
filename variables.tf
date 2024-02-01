@@ -143,14 +143,9 @@ variable "sftp_users" {
     uid        = number
     gid        = number
     public_key = string
+    restricted = optional(bool, false)
   }))
-  default = {
-    user1 = {
-      uid        = 1000
-      gid        = 1000
-      public_key = ""
-    }
-  }
+  default = {}
 }
 
 variable "security_policy_name" {
@@ -181,4 +176,16 @@ variable "sftp_security_group_ids" {
   type        = list(string)
   description = "A list of security group ids that should be attached to the SFTP server"
   default     = []
+}
+
+variable "encrypted" {
+  type        = bool
+  description = "Whether to enable encryption for the file system. Default is true."
+  default     = true
+}
+
+variable "kms_key_id" {
+  type        = string
+  description = "The ARN of the AWS Key Management Service (AWS KMS) customer master key (CMK) to be used to protect the encrypted file system. This parameter is only required if you want to use a non-default CMK. If this parameter is not specified, the default CMK for Amazon EFS is used. This ID can be in one of the following formats: Key ID - A unique identifier of the key, for example 1234abcd-12ab-34cd-56ef-1234567890ab. ARN - An Amazon Resource Name (ARN) for the key, for example arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab. Key alias - A previously created display name for a key, for example alias/projectKey1. Key alias ARN - An ARN for a key alias, for example arn:aws:kms:us-east-2:444455556666:alias/projectKey1. If KmsKeyId is specified, the Encrypted flag must also be set."
+  default     = null
 }

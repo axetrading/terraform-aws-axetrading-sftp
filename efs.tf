@@ -1,6 +1,7 @@
 resource "aws_efs_file_system" "efs" {
   creation_token                  = var.efs_name
-  encrypted                       = true
+  encrypted                       = var.encrypted
+  kms_key_id                      = var.kms_key_id
   performance_mode                = var.performance_mode
   provisioned_throughput_in_mibps = 0
   tags                            = merge({ Name = var.efs_name }, var.tags)

@@ -57,6 +57,14 @@ resource "aws_transfer_user" "sftp_user" {
   home_directory_type = var.home_directory_type
   home_directory      = "/${aws_efs_file_system.efs.id}/${each.key}"
 
+  dynamic "home_directory_map" {
+    for_each = each.value.restricted ? [var.home_directory_map] : []
+    content {
+      entry  = "/"
+      target = "/${aws_efs_file_system.efs.id}/${each.key}"
+    }
+  }
+
   posix_profile {
     uid = each.value.uid
     gid = each.value.gid
