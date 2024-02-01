@@ -43,8 +43,8 @@ resource "aws_transfer_server" "sftp_server" {
       address_allocation_ids = var.is_public ? aws_eip.eip.*.id : var.eip_ids
     }
   }
-
-  tags = merge({ Name = var.sftp_name }, var.tags)
+  force_destroy = var.identity_provider_type == "SERVICE_MANAGED" ? true : false
+  tags          = merge({ Name = var.sftp_name }, var.tags)
 }
 
 # Create AWS Transfer Family SFTP User
@@ -55,7 +55,7 @@ resource "aws_transfer_user" "sftp_user" {
   user_name = each.key
 
   home_directory_type = var.home_directory_type
-  home_directory      = "/${aws_efs_file_system.efs.id}/${each.key}"
+  home_directory      = each.value.home_directory != null ? each.value.home_directory : "/${aws_efs_file_system.efs.id}/${each.key}"
 
   dynamic "home_directory_mappings" {
     for_each = each.value.restricted ? [true] : []

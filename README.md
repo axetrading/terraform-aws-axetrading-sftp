@@ -28,7 +28,7 @@ sudo chmod -R 755 EFS\_ID
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.67.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.34.0 |
 
 ## Resources
 
@@ -83,7 +83,7 @@ sudo chmod -R 755 EFS\_ID
 | <a name="input_sftp_security_group_ids"></a> [sftp\_security\_group\_ids](#input\_sftp\_security\_group\_ids) | A list of security group ids that should be attached to the SFTP server | `list(string)` | `[]` | no |
 | <a name="input_sftp_security_group_name"></a> [sftp\_security\_group\_name](#input\_sftp\_security\_group\_name) | Security Group Name | `string` | `""` | no |
 | <a name="input_sftp_security_group_rules"></a> [sftp\_security\_group\_rules](#input\_sftp\_security\_group\_rules) | A map of security group rule definitions to add to the security group created | `map(any)` | `{}` | no |
-| <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | A map of SFTP users to create | <pre>map(object({<br>    uid        = number<br>    gid        = number<br>    public_key = string<br>    restricted = optional(bool, false)<br>  }))</pre> | `{}` | no |
+| <a name="input_sftp_users"></a> [sftp\_users](#input\_sftp\_users) | A map of SFTP users to create | <pre>map(object({<br>    uid            = number<br>    gid            = number<br>    public_key     = string<br>    home_directory = optional(string, null)<br>    restricted     = optional(bool, false)<br>  }))</pre> | `{}` | no |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | A map of subnets to availability zones | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `{}` | no |
 | <a name="input_throughput_mode"></a> [throughput\_mode](#input\_throughput\_mode) | Efs throughput mode | `string` | `"bursting"` | no |

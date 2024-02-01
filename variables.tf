@@ -140,10 +140,11 @@ variable "home_directory_type" {
 variable "sftp_users" {
   description = "A map of SFTP users to create"
   type = map(object({
-    uid        = number
-    gid        = number
-    public_key = string
-    restricted = optional(bool, false)
+    uid            = number
+    gid            = number
+    public_key     = string
+    home_directory = optional(string, null)
+    restricted     = optional(bool, false)
   }))
   default = {}
 }
