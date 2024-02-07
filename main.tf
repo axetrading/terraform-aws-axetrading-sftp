@@ -55,7 +55,7 @@ resource "aws_transfer_user" "sftp_user" {
   user_name = each.key
 
   home_directory_type = var.home_directory_type
-  home_directory      = each.value.home_directory
+  home_directory      = each.value.home_directory != null ? "/${aws_efs_file_system.efs.id}/${each.value.home_directory}" : "/${aws_efs_file_system.efs.id}/${each.key}"
 
   dynamic "home_directory_mappings" {
     for_each = each.value.restricted ? [true] : []

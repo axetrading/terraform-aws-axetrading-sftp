@@ -143,11 +143,19 @@ variable "sftp_users" {
     uid            = number
     gid            = number
     public_key     = string
-    home_directory = string
+    home_directory = optional(string, null)
     restricted     = optional(bool, false)
   }))
   default = {}
+
+  validation {
+    condition = alltrue([
+      for _, user in var.sftp_users : user.home_directory == null || substr(user.home_directory, 0, 1) != "/"
+    ])
+    error_message = "The home_directory for each user must not start with '/'."
+  }
 }
+
 
 variable "security_policy_name" {
   type        = string
