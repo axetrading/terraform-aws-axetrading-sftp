@@ -72,9 +72,7 @@ resource "aws_transfer_user" "sftp_user" {
 
   role = local.role_arn
 
-  tags = {
-    Name = each.key
-  }
+  tags = merge({ Name = each.key }, var.tags)
 
 }
 

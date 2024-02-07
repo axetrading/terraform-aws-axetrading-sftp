@@ -32,6 +32,7 @@ resource "aws_efs_access_point" "user_access_point" {
       permissions = "0755"
     }
   }
+  tags = merge({ Name = each.key }, var.tags)
 }
 
 resource "aws_efs_access_point" "additional_access_point" {
@@ -51,4 +52,5 @@ resource "aws_efs_access_point" "additional_access_point" {
       permissions = "0755"
     }
   }
+  tags = merge({ Name = each.key }, var.tags)
 }

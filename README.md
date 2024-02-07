@@ -97,6 +97,7 @@ sudo chmod -R 755 EFS\_ID
 
 | Name | Description |
 |------|-------------|
+| <a name="output_additional_access_points"></a> [additional\_access\_points](#output\_additional\_access\_points) | Information about the general-use EFS access points |
 | <a name="output_efs_file_system_id"></a> [efs\_file\_system\_id](#output\_efs\_file\_system\_id) | EFS ID |
 | <a name="output_efs_mount_target_dns_names"></a> [efs\_mount\_target\_dns\_names](#output\_efs\_mount\_target\_dns\_names) | EFS Mount targets DNS name |
 | <a name="output_efs_mount_target_ids"></a> [efs\_mount\_target\_ids](#output\_efs\_mount\_target\_ids) | EFS Mount targets |
@@ -108,4 +109,5 @@ sudo chmod -R 755 EFS\_ID
 | <a name="output_sftp_server_endpoint"></a> [sftp\_server\_endpoint](#output\_sftp\_server\_endpoint) | SFTP SERVER ENDPOINT |
 | <a name="output_sftp_server_id"></a> [sftp\_server\_id](#output\_sftp\_server\_id) | SFTP SERVER ID |
 | <a name="output_sftp_user_usernames"></a> [sftp\_user\_usernames](#output\_sftp\_user\_usernames) | SFTP SERVER USERS |
+| <a name="output_user__access_points"></a> [user\_\_access\_points](#output\_user\_\_access\_points) | Information about the user-specific EFS access points |
 <!-- END_TF_DOCS -->
