@@ -28,12 +28,14 @@ sudo chmod -R 755 EFS\_ID
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.35.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_efs_access_point.additional_access_point](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_access_point) | resource |
+| [aws_efs_access_point.user_access_point](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_access_point) | resource |
 | [aws_efs_file_system.efs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_file_system) | resource |
 | [aws_efs_mount_target.mount_target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target) | resource |
 | [aws_eip.eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
@@ -58,6 +60,7 @@ sudo chmod -R 755 EFS\_ID
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_access_points"></a> [additional\_access\_points](#input\_additional\_access\_points) | Configuration for additional, general-use access points | <pre>map(object({<br>    path = string<br>    uid  = number<br>    gid  = number<br>  }))</pre> | `{}` | no |
 | <a name="input_create_efs_security_group"></a> [create\_efs\_security\_group](#input\_create\_efs\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `true` | no |
 | <a name="input_create_iam_role"></a> [create\_iam\_role](#input\_create\_iam\_role) | Flag to create an IAM role for SFTP users | `bool` | `true` | no |
 | <a name="input_create_sftp_security_group"></a> [create\_sftp\_security\_group](#input\_create\_sftp\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `true` | no |
@@ -65,6 +68,7 @@ sudo chmod -R 755 EFS\_ID
 | <a name="input_efs_security_group_name"></a> [efs\_security\_group\_name](#input\_efs\_security\_group\_name) | Security Group Name | `string` | `""` | no |
 | <a name="input_efs_security_group_rules"></a> [efs\_security\_group\_rules](#input\_efs\_security\_group\_rules) | A map of security group rule definitions to add to the security group created | `map(any)` | `{}` | no |
 | <a name="input_eip_ids"></a> [eip\_ids](#input\_eip\_ids) | A list of Elastic IP IDs to associate with the SFTP server | `list(string)` | `[]` | no |
+| <a name="input_enable_user_access_point"></a> [enable\_user\_access\_point](#input\_enable\_user\_access\_point) | Determines whether to create access points for each user | `bool` | `false` | no |
 | <a name="input_encrypted"></a> [encrypted](#input\_encrypted) | Whether to enable encryption for the file system. Default is true. | `bool` | `true` | no |
 | <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint type of the SFTP server | `string` | `"PUBLIC"` | no |
 | <a name="input_home_directory"></a> [home\_directory](#input\_home\_directory) | Home directory type of the SFTP server | `string` | `""` | no |

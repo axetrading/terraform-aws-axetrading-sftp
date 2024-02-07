@@ -14,3 +14,41 @@ resource "aws_efs_mount_target" "mount_target" {
   subnet_id       = each.value
   security_groups = var.create_efs_security_group ? compact(concat([aws_security_group.efs[0].id], var.security_groups)) : var.security_groups
 }
+
+resource "aws_efs_access_point" "user_access_point" {
+  for_each = var.enable_user_access_point ? var.sftp_users : {}
+
+  file_system_id = aws_efs_file_system.efs.id
+
+  posix_user {
+    uid = each.value.uid
+    gid = each.value.gid
+  }
+  root_directory {
+    path = each.value.home_directory
+    creation_info {
+      owner_uid   = each.value.uid
+      owner_gid   = each.value.gid
+      permissions = "0755"
+    }
+  }
+}
+
+resource "aws_efs_access_point" "additional_access_point" {
+  for_each = var.additional_access_points
+
+  file_system_id = aws_efs_file_system.efs.id
+
+  posix_user {
+    uid = each.value.uid
+    gid = each.value.gid
+  }
+  root_directory {
+    path = each.value.path
+    creation_info {
+      owner_uid   = each.value.uid
+      owner_gid   = each.value.gid
+      permissions = "0755"
+    }
+  }
+}
