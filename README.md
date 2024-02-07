@@ -109,5 +109,5 @@ sudo chmod -R 755 EFS\_ID
 | <a name="output_sftp_server_endpoint"></a> [sftp\_server\_endpoint](#output\_sftp\_server\_endpoint) | SFTP SERVER ENDPOINT |
 | <a name="output_sftp_server_id"></a> [sftp\_server\_id](#output\_sftp\_server\_id) | SFTP SERVER ID |
 | <a name="output_sftp_user_usernames"></a> [sftp\_user\_usernames](#output\_sftp\_user\_usernames) | SFTP SERVER USERS |
-| <a name="output_user__access_points"></a> [user\_\_access\_points](#output\_user\_\_access\_points) | Information about the user-specific EFS access points |
+| <a name="output_user_access_points"></a> [user\_access\_points](#output\_user\_access\_points) | Information about the user-specific EFS access points |
 <!-- END_TF_DOCS -->
