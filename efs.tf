@@ -49,7 +49,7 @@ resource "aws_efs_access_point" "additional_access_point" {
     creation_info {
       owner_uid   = each.value.uid
       owner_gid   = each.value.gid
-      permissions = "0755"
+      permissions = each.value.permissions
     }
   }
   tags = merge({ Name = each.key }, var.tags)

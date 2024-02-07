@@ -200,9 +200,10 @@ variable "enable_user_access_point" {
 variable "additional_access_points" {
   description = "Configuration for additional, general-use access points"
   type = map(object({
-    path = string
-    uid  = number
-    gid  = number
+    path        = string
+    uid         = number
+    gid         = number
+    permissions = optional(string, "0755")
   }))
   default = {}
 }

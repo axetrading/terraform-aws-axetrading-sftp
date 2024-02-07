@@ -60,7 +60,7 @@ sudo chmod -R 755 EFS\_ID
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_additional_access_points"></a> [additional\_access\_points](#input\_additional\_access\_points) | Configuration for additional, general-use access points | <pre>map(object({<br>    path = string<br>    uid  = number<br>    gid  = number<br>  }))</pre> | `{}` | no |
+| <a name="input_additional_access_points"></a> [additional\_access\_points](#input\_additional\_access\_points) | Configuration for additional, general-use access points | <pre>map(object({<br>    path        = string<br>    uid         = number<br>    gid         = number<br>    permissions = optional(string, "0755")<br>  }))</pre> | `{}` | no |
 | <a name="input_create_efs_security_group"></a> [create\_efs\_security\_group](#input\_create\_efs\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `true` | no |
 | <a name="input_create_iam_role"></a> [create\_iam\_role](#input\_create\_iam\_role) | Flag to create an IAM role for SFTP users | `bool` | `true` | no |
 | <a name="input_create_sftp_security_group"></a> [create\_sftp\_security\_group](#input\_create\_sftp\_security\_group) | Determines whether to create security group for EFS Mount | `bool` | `true` | no |
