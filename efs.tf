@@ -25,7 +25,7 @@ resource "aws_efs_access_point" "user_access_point" {
     gid = each.value.gid
   }
   root_directory {
-    path = each.value.home_directory
+    path = each.value.home_directory != null ? format("/%s", each.value.home_directory) : format("/%s", each.key)
     creation_info {
       owner_uid   = each.value.uid
       owner_gid   = each.value.gid
