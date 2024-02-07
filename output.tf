@@ -69,7 +69,6 @@ output "user_access_points" {
       id             = access_point.id
       arn            = access_point.arn
       file_system_id = access_point.file_system_id
-      path           = access_point.path
     }
   }
   sensitive = false
@@ -82,7 +81,6 @@ output "additional_access_points" {
       id             = access_point.id
       arn            = access_point.arn
       file_system_id = access_point.file_system_id
-      path           = access_point.path
     }
   }
   sensitive = false
