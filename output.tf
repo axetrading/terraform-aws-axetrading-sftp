@@ -62,7 +62,7 @@ output "efs_security_group_id" {
   value       = try(aws_security_group.efs[0].id, "")
 }
 
-output "user__access_points" {
+output "user_access_points" {
   description = "Information about the user-specific EFS access points"
   value = {
     for user, access_point in aws_efs_access_point.user_access_point : user => {
