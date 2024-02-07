@@ -143,7 +143,7 @@ variable "sftp_users" {
     uid            = number
     gid            = number
     public_key     = string
-    home_directory = optional(string, null)
+    home_directory = string
     restricted     = optional(bool, false)
   }))
   default = {}
