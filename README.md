@@ -98,6 +98,7 @@ sudo chmod -R 755 EFS\_ID
 | Name | Description |
 |------|-------------|
 | <a name="output_additional_access_points"></a> [additional\_access\_points](#output\_additional\_access\_points) | Information about the general-use EFS access points |
+| <a name="output_efs_file_system_arn"></a> [efs\_file\_system\_arn](#output\_efs\_file\_system\_arn) | EFS ARN |
 | <a name="output_efs_file_system_id"></a> [efs\_file\_system\_id](#output\_efs\_file\_system\_id) | EFS ID |
 | <a name="output_efs_mount_target_dns_names"></a> [efs\_mount\_target\_dns\_names](#output\_efs\_mount\_target\_dns\_names) | EFS Mount targets DNS name |
 | <a name="output_efs_mount_target_ids"></a> [efs\_mount\_target\_ids](#output\_efs\_mount\_target\_ids) | EFS Mount targets |

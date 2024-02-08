@@ -4,6 +4,11 @@ output "efs_file_system_id" {
   value       = try(aws_efs_file_system.efs[*].id, "")
 }
 
+output "efs_file_system_arn" {
+  description = "EFS ARN"
+  value       = try(aws_efs_file_system.efs[*].arn, "")
+}
+
 output "efs_mount_target_ids" {
   description = "EFS Mount targets"
   value       = try(values(aws_efs_mount_target.mount_target)[*].id, [])
